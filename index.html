@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
+    <p class="recorde"></p>
+
     <div class="area-game"></div>
 
     <div class="template-card">
@@ -29,6 +31,23 @@
     <div class="modal-template">
       <div class="modal">
         <h1>JOGO DA MEMÓRIA</h1>
+        <div class="dificuldade">
+          <label for="facil">
+            <input type="radio" id="facil" name="dificuldade" data-dificuldade="1500">
+            Fácil
+          </label>
+
+          <label for="medio">
+            <input type="radio" id="medio" name="dificuldade" data-dificuldade="700">
+            Médio
+          </label>
+
+          <label for="dificil">
+            <input type="radio" id="dificil" name="dificuldade" data-dificuldade="200">
+            Dificil
+          </label>
+     
+        </div>
         <button>jogar</button>
       </div>
     </div>
@@ -36,6 +55,7 @@
     <div class="modal-template-recomeco">
       <div class="modal">
         <h1>Deseja jogar novamente?</h1>
+        <p class="tentativas"></p>
         <button>recomeçar</button>
       </div>
     </div>

@@ -45,7 +45,7 @@ function embaralhaAsPosicoesDosCards() {
   }
 }
 
-function colocaOsCardsNaArea() {
+function colocaOsCardsNaArea(dificuldade) {
   AreaCards.forEach((area, index) => {
     // esse card pega o modelo do card que esta no html e permite que "clone" ele
     const card = modelo.cloneNode(true);
@@ -61,10 +61,10 @@ function colocaOsCardsNaArea() {
     areaCard.append(card);
   });
 
-  dificuldadeDoJogo();
+  dificuldadeDoJogo(dificuldade);
 }
 
-function dificuldadeDoJogo() {
+function dificuldadeDoJogo(dificuldade) {
   const cards = document.querySelectorAll(".area-game .card .flip");
   cards.forEach((c) => {
     setTimeout(() => {
@@ -74,7 +74,7 @@ function dificuldadeDoJogo() {
       // aqui coloca a class que faz com que o card seja clicavel
       c.classList.add("jogavel");
       cardsClicaveis();
-    }, 1000);
+    }, Number(dificuldade));
   });
 }
 
@@ -149,16 +149,38 @@ function cardsClicaveis() {
   cardsClicaveis.forEach((card) => card.addEventListener("click", handleCard));
 
   // aqui é quando acaba o game, ou seja, quando nao tiver nenhum card clicavel é porque o game acabou
-  if (cardsClicaveis.length === 0) modalRecomeco.classList.add("acabou");
+  if (cardsClicaveis.length === 0) openModalRecomeco();
+}
+
+function openModalRecomeco() {
+  modalRecomeco.classList.add("acabou")
+  modalRecomeco.querySelector('.tentativas').innerHTML = `Você terminou o jogo em ${tentativas} tentativas`
+
+  const tentativasStorage = localStorage.getItem('tentativas')
+
+  console.log(Number(tentativasStorage), Number(tentativas))
+
+  if (tentativasStorage) {
+    if (Number(tentativasStorage) < Number(tentativas)) return
+  }
+  localStorage.setItem('tentativas', tentativas)
 }
 
 function initGame({ currentTarget }) {
-  currentTarget.parentNode.parentNode.classList.add("game-iniciou");
+  const dificuldade = [...document.querySelectorAll("input[type='radio']")].map(item => {
+    if (item.checked) return item.dataset.dificuldade
+  }).filter(item => item !== undefined)
+  
 
-  embaralhaAsPosicoesDosCards();
-  colocaOsCardsNaArea();
-
-  cards = document.querySelectorAll(".area-game .card .flip");
+  if (dificuldade.length) {
+    currentTarget.parentNode.parentNode.classList.add("game-iniciou");
+    embaralhaAsPosicoesDosCards();
+    colocaOsCardsNaArea(dificuldade[0]);
+  
+    cards = document.querySelectorAll(".area-game .card .flip");
+  } else {
+    alert('selecione uma dificuldade!')
+  }
 }
 
 function resetGame() {
@@ -175,5 +197,17 @@ function resetGame() {
   cards = document.querySelectorAll(".area-game .card .flip");
 }
 
+function recorde() {
+  const recordArea = document.querySelector('.recorde');
+  const recorde = localStorage.getItem('tentativas')
+
+  if (recorde) {
+    recordArea.innerHTML = `Seu recorde: ${recorde}`
+  } else {
+    recordArea.innerHTML = `Jogue e dê seu melhor para ter seu recorde!`
+  }
+  
+}
+recorde();
 modal.addEventListener("click", initGame);
 modalRecomecoButton.addEventListener("click", resetGame);

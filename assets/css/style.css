@@ -8,6 +8,7 @@ body {
   height: 100vh;
   background-color: black;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 100px 20px;
@@ -113,6 +114,11 @@ body {
   transform: scale(1);
 }
 
+.modal-template-recomeco .tentativas {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 .modal {
   width: 70%;
   height: 80%;
@@ -143,6 +149,19 @@ body {
 .modal button:hover {
   background-color: rgba(0, 0, 0, 0.2);
   color: black;
+}
+
+.dificuldade label {
+  display: block;
+}
+
+.dificuldade label + label {
+  margin-top: 50px;
+}
+
+.recorde {
+  color: white;
+  margin-bottom: 50px;
 }
 
 @media (max-width: 810px) {
