@@ -10,6 +10,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 100px 20px;
 }
 
 .template-card {
@@ -69,7 +70,8 @@ body {
 .area-game {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 50px;
+  gap: 40px;
+  height: 100%;
 }
 
 .modal-template {
@@ -141,4 +143,38 @@ body {
 .modal button:hover {
   background-color: rgba(0, 0, 0, 0.2);
   color: black;
+}
+
+@media (max-width: 810px) {
+  .area-game {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+}
+@media (max-width: 550px) {
+  .area-game {
+    gap: 20px;
+  }
+
+  .card {
+    width: 130px;
+    height: 130px;
+  }
+}
+/* 
+@media (max-width: 450px) {
+  .card {
+    width: 110px;
+    height: 50px;
+  }
+
+  .card .flip div {
+    padding: 10px 0px;
+  }
+} */
+@media (max-width: 380px) {
+  .card {
+    width: 80px;
+    height: auto;
+  }
 }
